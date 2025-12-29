@@ -92,7 +92,7 @@ This backend provides real-time updates via WebSocket:
 - **Event Broadcasting**: All CRUD operations broadcast to connected clients
 
 
-## 🔧 Development
+## Development
 
 ### Available Scripts
 ```bash
