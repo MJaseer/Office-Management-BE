@@ -17,7 +17,7 @@ import { Logger } from '@nestjs/common';
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
-  
+
   private readonly logger = new Logger(EventsGateway.name);
   private connectedClients: Map<string, Socket> = new Map();
 
