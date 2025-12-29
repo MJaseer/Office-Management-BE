@@ -7,11 +7,11 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## 🏢 Description
+## Description
 
 A NestJS backend for Office Management System with real-time WebSocket support. Provides RESTful APIs and WebSocket events for managing companies and employees.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone and Install
 ```bash
@@ -84,7 +84,7 @@ src/
 - `employee_updated` - Employee updated
 - `employee_deleted` - Employee deleted
 
-## 📡 Real-time Features
+## Real-time Features
 
 This backend provides real-time updates via WebSocket:
 - **Instant Data Sync**: Changes in one client instantly reflect in all connected clients
@@ -106,7 +106,7 @@ npm run build
 npm run start:prod
 ```
 
-## 📦 Dependencies
+## Dependencies
 
 ### Main Dependencies
 - **@nestjs/common** - NestJS core
@@ -116,7 +116,7 @@ npm run start:prod
 - **socket.io** - Real-time communication
 - **class-validator** - Request validation
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -155,7 +155,7 @@ This backend pairs with the frontend:
 - Frontend Repo: [Office-Management-FE](https://github.com/MJaseer/Office-Management-FE)
 - Frontend runs on: `http://localhost:4200`
 
-## 📄 API Documentation
+## API Documentation
 
 Full API documentation available via:
 - Import Postman collection
