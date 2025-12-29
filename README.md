@@ -1,3 +1,5 @@
+# Office Management System - Backend
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
@@ -5,105 +7,161 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🏢 Description
 
-## Description
+A NestJS backend for Office Management System with real-time WebSocket support. Provides RESTful APIs and WebSocket events for managing companies and employees.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Quick Start
 
-## Project setup
-
+### 1. Clone and Install
 ```bash
-$ npm install
+git clone https://github.com/MJaseer/Office-Management-BE.git
+cd Office-Management-BE
+npm install
 ```
 
-## Environment Variables
-
-Create a .env file in the project root with the following variables:
-
+### 2. Set up Environment
+Create a `.env` file in project root:
 ```bash
-MONGODB_URI=<your_mongodb_connection_string>
+MONGODB_URI=<add_your_mongo_uri>
 PORT=3000
 CORS_ORIGIN=http://localhost:4200
-
-#CORS_ORIGIN should match the frontend application URL. If running frontend on a different port, update this value accordingly. Multiple origins can be provided as a comma-separated list.
 ```
-## Compile and run the project
 
+**Note:** CORS_ORIGIN should match your frontend URL. Multiple origins can be comma-separated.
+
+### 3. Run MongoDB
+Ensure MongoDB is running:
 ```bash
-# development
-$ npm run start
+# If using Docker (recommended)
+docker run -d -p 27017:27017 --name office-mongodb mongo:latest
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Or using existing MongoDB
+# Make sure MongoDB service is running
 ```
 
-## Run tests
-
+### 4. Start the Server
 ```bash
-# unit tests
-$ npm run test
+# Development mode (auto-reload)
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Production mode
+npm run start:prod
 ```
 
-## Deployment
+## Project Structure
+```
+src/
+├── companies/          # Company module (CRUD operations)
+├── employees/          # Employee module (CRUD operations)
+├── common/websocket/   # WebSocket gateway for real-time
+├── shared/             # Constants and shared utilities
+└── main.ts            # Application entry point
+```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## API Endpoints
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Companies (`/api/companies`)
+- `GET /` - Get all companies
+- `GET /dropdown` - Get companies for dropdown
+- `GET /:id` - Get company by ID
+- `POST /` - Create new company
+- `PUT /:id` - Update company
+- `DELETE /:id` - Delete company
 
+### Employees (`/api/employees`)
+- `GET /` - Get all employees (with company details)
+- `GET /:id` - Get employee by ID
+- `POST /` - Create new employee
+- `PUT /:id` - Update employee
+- `DELETE /:id` - Delete employee
+
+### WebSocket Events (`ws://localhost:3000/office-management`)
+- `company_created` - New company created
+- `company_updated` - Company updated
+- `company_deleted` - Company deleted
+- `employee_created` - New employee created
+- `employee_updated` - Employee updated
+- `employee_deleted` - Employee deleted
+
+## 📡 Real-time Features
+
+This backend provides real-time updates via WebSocket:
+- **Instant Data Sync**: Changes in one client instantly reflect in all connected clients
+- **Cross-tab Updates**: Multiple browser tabs stay synchronized
+- **Event Broadcasting**: All CRUD operations broadcast to connected clients
+
+
+## 🔧 Development
+
+### Available Scripts
 ```bash
-$ npm install -g mau
-$ mau deploy
+# Development with watch mode
+npm run start:dev
+
+# Production build
+npm run build
+
+# Run production build
+npm run start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📦 Dependencies
 
-## Resources
+### Main Dependencies
+- **@nestjs/common** - NestJS core
+- **@nestjs/mongoose** - MongoDB integration
+- **@nestjs/websockets** - WebSocket support
+- **mongoose** - MongoDB ODM
+- **socket.io** - Real-time communication
+- **class-validator** - Request validation
 
-Check out a few resources that may come in handy when working with NestJS:
+## 🐛 Troubleshooting
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Common Issues
 
-## Support
+**1. MongoDB Connection Failed:**
+```bash
+# Check if MongoDB is running
+mongosh
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# If using Docker
+docker ps | grep mongo
+```
 
-## Stay in touch
+**2. CORS Errors:**
+- Ensure `.env` has correct `CORS_ORIGIN`
+- Restart server after changing `.env`
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**3. Port Already in Use:**
+```bash
+# Find process using port 3000
+lsof -i :3000
 
-## License
+# Kill the process
+kill -9 <PID>
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#kill port
+npx kill-port 3000
+```
+
+**4. WebSocket Connection Failed:**
+- Check if server is running
+- Verify WebSocket URL: `ws://localhost:3000/office-management`
+
+## Frontend Integration
+
+This backend pairs with the frontend:
+- Frontend Repo: [Office-Management-FE](https://github.com/MJaseer/Office-Management-FE)
+- Frontend runs on: `http://localhost:4200`
+
+## 📄 API Documentation
+
+Full API documentation available via:
+- Import Postman collection
+- Check `/src` for detailed DTOs and interfaces
+- WebSocket events documented in `events.gateway.ts`
+
+<p align="center">
+  Made using NestJS
+</p>
