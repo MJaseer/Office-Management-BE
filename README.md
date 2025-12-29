@@ -31,6 +31,17 @@
 $ npm install
 ```
 
+## Environment Variables
+
+Create a .env file in the project root with the following variables:
+
+```bash
+MONGODB_URI=<your_mongodb_connection_string>
+PORT=3000
+CORS_ORIGIN=http://localhost:4200
+
+#CORS_ORIGIN should match the frontend application URL. If running frontend on a different port, update this value accordingly. Multiple origins can be provided as a comma-separated list.
+```
 ## Compile and run the project
 
 ```bash
